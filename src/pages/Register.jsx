@@ -29,33 +29,30 @@ const Register = () => {
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
-    clubName: yup.string().required("Club name is required"),
+    username: yup.string().required("Club name is required"),
     email: yup
       .string()
       .email("Email must be a valid email")
       .required("Email is required"),
     password: yup.string().required("Password is required"),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+    
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
-      clubName: e.target.clubName.value,
+      username: e.target.clubName.value,
       password: e.target.password.value,
       email: e.target.email.value,
-      confirmPassword: e.target.confirmPassword.value,
     };
 
     schema
       .validate(formData)
       .then(async (valid) => {
         axios
-          .post("", valid)
+          .post("http://localhost:8080/users/signup", valid)
           .then((data) => {
-            setToken(data.data);
+            localStorage.setItem('token',data);
             navigate("/", { replace: true });
           })
           .catch(function (error) {

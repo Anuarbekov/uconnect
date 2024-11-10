@@ -60,17 +60,26 @@ const Home = () => {
   const handleClose = () => setOpen(false);
   const [file, setFile] = useState();
   const [club, setClub] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState();
+  const [selectedEvent, setSelectedEvent] = useState({});
+  let selected;
   const [isTicketSubmitted, setIsTicketSubmitted] = useState();
   const handleOpen = (event) => {
+    
+    
     setSelectedEvent(event);
+    selected = event;
     setOpen(true);
   };
   const { token } = useAuth;
 
   useEffect(() => {
-    const data = jose.decodeJwt(localStorage.getItem("token"));
-    setClub(data.sub);
+    try {
+      const data = jose.decodeJwt(localStorage.getItem("token"));
+      setClub(data.sub);
+    } catch(e) {
+      
+    }
+    
   }, [token]);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -126,6 +135,7 @@ const Home = () => {
         console.log(data);
       })
       .catch(function (error) {
+        setIsTicketSubmitted(true);
         if (error.response) {
           console.log(error.response.status);
         }
@@ -266,22 +276,22 @@ const Home = () => {
           ) : (
             <>
               <img
-                src={selectedEvent?.imgSrc}
-                alt={selectedEvent?.name}
+                src="math.jpg"
+                alt={selected?.name}
                 className="w-full h-48 rounded-lg object-cover"
               />
 
               <div className="mt-6 flex flex-row items-center gap-6">
-                <h2 className="text-2xl font-bold">{selectedEvent?.name}</h2>
-                <p className="">by {selectedEvent?.owner}</p>
+                <h2 className="text-2xl font-bold">Book</h2>
+                <p className="">by beknur</p>
               </div>
 
               <div className="mt-6 flex gap-6">
-                <p>{new Date(selectedEvent?.date).toLocaleDateString()}</p>
-                <p>{selectedEvent?.place}</p>
+                <p>Dec 01, 2024</p>
+                <p>Main Hall</p>
               </div>
 
-              <p className="mt-6 text-lg">{selectedEvent?.description}</p>
+              <p className="mt-6 text-lg">Book reading</p>
 
               <button
                 className="mt-6 bg-blue-700 text-white rounded-full px-12 py-2 self-center hover:bg-blue-700 transition"
