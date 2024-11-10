@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "SF";
+  src:
+    local("SF-Pro-Display-Medium"),
+    url("./assets/fonts/SF-Pro-Display-Medium.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.MuiDateTimePicker {
+  border-radius: 20px !important;
+  border: "1px solid" !important;
+}
+.beks {
+  background-image: url("beks.jpeg");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
