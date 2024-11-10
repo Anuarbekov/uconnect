@@ -69,12 +69,8 @@ const Home = () => {
   const { token } = useAuth;
 
   useEffect(() => {
-    if (token) {
-      const data = jose.decodeJwt(token);
-      if (data) {
-        setClub(data);
-      }
-    }
+    const data = jose.decodeJwt(localStorage.getItem("token"));
+    setClub(data.sub);
   }, [token]);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -98,15 +94,15 @@ const Home = () => {
       location: e.target.location.value,
       description: e.target.description.value,
     };
-    console.log(formData);
     if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
+      const form = new FormData();
+      form.append("file", file);
+      console.log(form);
       schema
         .validate(formData)
         .then(async (valid) => {
           axios
-            .post("/event", { ...valid, formData })
+            .post("http://localhost:8080/events", { ...valid, form })
             .then((data) => {
               console.log(data);
             })
@@ -149,9 +145,7 @@ const Home = () => {
 
   const fetchEvents = async (eventTypes) => {
     try {
-      const response = await axios.post("/api/events", {
-        eventTypes,
-      });
+      const response = await axios.get("http://localhost:8080/events/trending");
       setEvents(response.data);
     } catch (error) {
       console.error("Error fetching events:", error);
