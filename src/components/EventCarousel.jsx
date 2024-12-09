@@ -49,7 +49,7 @@ const eventList = [
 ];
 
 // eslint-disable-next-line react/prop-types
-const EventsCarousel = ({ handleOpen }) => {
+const EventsCarousel = ({ events, handleOpen }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerSlide = 4;
   const totalSlides = Math.ceil(eventList.length / itemsPerSlide);
@@ -68,8 +68,8 @@ const EventsCarousel = ({ handleOpen }) => {
 
   // Generate slides with 4 events each
   const slides = [];
-  for (let i = 0; i < eventList.length; i += itemsPerSlide) {
-    slides.push(eventList.slice(i, i + itemsPerSlide));
+  for (let i = 0; i < events.length; i += itemsPerSlide) {
+    slides.push(events.slice(i, i + itemsPerSlide));
   }
 
   return (

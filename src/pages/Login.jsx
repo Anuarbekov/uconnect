@@ -44,7 +44,7 @@ const Login = () => {
       .validate(formData)
       .then(async (valid) => {
         axios
-          .post("", valid)
+          .post("http://localhost:8080/users/signin", valid)
           .then((data) => {
             setToken(data.data);
             navigate("/", { replace: true });

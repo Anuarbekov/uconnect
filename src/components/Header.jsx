@@ -25,7 +25,7 @@ const Header = ({ isLogin, token, handleOpen, club }) => {
       ) : (
         <div className="flex flex-row justify-between w-full px-10 items-center">
           <h2 className="text-lg font-semibold">UGather.</h2>
-          {!token ? (
+          {!localStorage.getItem("token") ? (
             <button
               className="bg-blue-700 px-4 py-1 rounded-3xl text-white font-light"
               onClick={() => Login()}
@@ -44,7 +44,7 @@ const Header = ({ isLogin, token, handleOpen, club }) => {
                 className="bg-blue-700 px-4 py-1 rounded-3xl text-white font-light"
                 onClick={() => Profile()}
               >
-                {club.username}
+                {club}
               </button>
             </div>
           )}
